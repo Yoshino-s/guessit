@@ -14,6 +14,6 @@ git add -A
 git commit -m 'deploy'
 
 git push -f git@github.com:Yoshino-s/guessit.git master:gh-pages
-git push -f https://git.coding.net/Yoshino-s/guessit.git master:gh-pages
+git push -f git@git.coding.net:/Yoshino-s/guessit.git master:gh-pages
 
 cd -
