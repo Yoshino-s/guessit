@@ -24,7 +24,7 @@
           </p>
           <p>From 百度百科</p>
           <p style="color: red;">
-            PS.此处无重复。
+            PS.无重复数字。
             <br />
             PPS.尝试次数超过{{constant.maxTry}}次会重置密码。。。。。
           </p>

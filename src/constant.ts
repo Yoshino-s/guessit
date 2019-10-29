@@ -1,5 +1,5 @@
 export default {
-  length: 6,
-  maxTry: 30,
+  length: 8,
+  maxTry: 15,
   code: 'qa5sw0Rb',
 };
