@@ -5,6 +5,8 @@ import 'muse-ui/dist/muse-ui.css';
 import App from './App.vue';
 import router from './router';
 
+MuseUI.theme.use('light');
+
 Vue.use(MuseUI);
 
 Vue.config.productionTip = false;

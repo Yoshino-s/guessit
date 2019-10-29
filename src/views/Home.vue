@@ -15,15 +15,35 @@
       <mu-card class="card">
         <mu-card-title title="规则" sub-title="Rule"></mu-card-title>
         <mu-card-text>
+          <div class="rule">
+            <p>密码是一个<span class="red">没有重复数字</span>的{{constant.length}}位数。
+            （例如{{sample}})
+            </p>
+            <p>
+              你可以开始猜。每猜一个数字，程序就要根据这个数字给出几A几B。</p>
+            <p>
+              其中A前面的数字表示
+              <span class="red">位置正确</span>
+              的数的个数，而B前的数字表示
+              <span class="red">数字正确而位置不对</span>
+              的数的个数。
+            </p>
+          </div>
           <p>
-            通常由两个人玩，一方出数字，一方猜。
-            出数字的人要想好一个没有重复数字的{{constant.length}}个数，不能让猜的人知道。
-            猜的人就可以开始猜。每猜一个数字，出数者就要根据这个数字给出几A几B，
-            其中A前面的数字表示位置正确的数的个数，
-            而B前的数字表示数字正确而位置不对的数的个数。
+            例如数字为： 0123
+          </p><p>
+            如果你猜： <i>0972</i>；
+            <br/>
+            1A1B， 0位置正确，2位置不正确数字正确
+          </p><p>
+            如果你猜： <i>0320</i>；
+            <br/>
+            2A1B， 0,2位置正确，3位置不正确数字正确
+            <br/>
+          </p><p>
+            注意，此处第一个0位置正确了，第四位上的0就没有匹配项了，所以不算是B。
           </p>
-          <p>From 百度百科</p>
-          <p style="color: red;">
+          <p class="red">
             PS.无重复数字。
             <br />
             PPS.尝试次数超过{{constant.maxTry}}次会重置密码。。。。。
@@ -43,7 +63,7 @@
         color="primary"
         @click="copy"
         data-clipboard-action="copy"
-        :data-clipboard-text="constant.code"
+        :data-clipboard-text="constant.code()"
         id="copy"
       >Copy</mu-button>
     </mu-dialog>
@@ -52,7 +72,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Clipboard from 'clipboard';
-import guess from '../guess';
+import { guess, reset } from '../guess';
 import constant from '../constant';
 
 @Component
@@ -72,6 +92,8 @@ export default class Home extends Vue {
   message = '';
 
   constant = constant;
+
+  sample = reset();
 
   submit() {
     const [r, i, strange] = guess(this.form.num);
@@ -123,5 +145,11 @@ export default class Home extends Vue {
 }
 .green {
   color: #00ad00;
+}
+.red {
+  color: #ef0000;
+}
+.rule {
+  text-indent: 2em;
 }
 </style>

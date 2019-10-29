@@ -6,23 +6,24 @@ let raw = '';
 
 let tryN = 0;
 
-function reset() {
-  raw = '';
+export function reset(): string {
+  tryN = 0;
+  let res = '';
   const t = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   for (let i = 0; i < length; i += 1) {
     const index = Math.floor(Math.random() * t.length);
-    raw += `${t[index]}`;
+    res += `${t[index]}`;
     t.splice(index, 1);
   }
+  return res;
 }
 
-reset();
+raw = reset();
 
-export default function guess(str: string): [boolean, string, string] {
+export function guess(str: string): [boolean, string, string] {
   tryN += 1;
   if (tryN === constant.maxTry) {
-    reset();
-    tryN = 0;
+    raw = reset();
     return [false, 'Try too many times. Reset the code.', ''];
   }
   const s = str.split('');
@@ -49,7 +50,7 @@ export default function guess(str: string): [boolean, string, string] {
     }
   }
   if (a === length) {
-    return [true, `Congratulation! Correct. And the code is ${constant.code}`, ''];
+    return [true, `Congratulation! Correct. And the code is ${constant.code()}`, ''];
   }
   for (let i = 0; i < length; i += 1) {
     if (s[i] !== '') {
