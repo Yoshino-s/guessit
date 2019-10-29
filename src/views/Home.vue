@@ -63,7 +63,7 @@
         color="primary"
         @click="copy"
         data-clipboard-action="copy"
-        :data-clipboard-text="constant.code()"
+        :data-clipboard-text="code"
         id="copy"
       >Copy</mu-button>
     </mu-dialog>
@@ -93,15 +93,18 @@ export default class Home extends Vue {
 
   constant = constant;
 
+  code = '';
+
   sample = reset();
 
-  submit() {
-    const [r, i, strange] = guess(this.form.num);
+  async submit() {
+    const [r, i, strange] = await guess(this.form.num);
     this.message = i;
     if (strange === 'niconiconi') {
       this.form.num = i;
     } else if (r) {
       this.openDialog = true;
+      this.code = strange;
     } else {
       this.color = 'error';
       this.icon = 'warning';
@@ -112,7 +115,7 @@ export default class Home extends Vue {
     }
   }
 
-  copy() {
+  async copy() {
     const cp = new Clipboard('#copy');
     cp.on('success', () => {
       this.openDialog = false;

@@ -20,7 +20,7 @@ export function reset(): string {
 
 raw = reset();
 
-export function guess(str: string): [boolean, string, string] {
+export async function guess(str: string): Promise<[boolean, string, string]> {
   tryN += 1;
   if (tryN === constant.maxTry) {
     raw = reset();
@@ -50,7 +50,8 @@ export function guess(str: string): [boolean, string, string] {
     }
   }
   if (a === length) {
-    return [true, `Congratulation! Correct. And the code is ${constant.code()}`, ''];
+    const code = await constant.code();
+    return [true, `Congratulation! Correct. And the code is ${code}`, code];
   }
   for (let i = 0; i < length; i += 1) {
     if (s[i] !== '') {
